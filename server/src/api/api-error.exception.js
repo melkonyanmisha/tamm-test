@@ -25,6 +25,15 @@ export default class ApiError extends Error {
 
   /**
    *
+   * @return {ApiError}
+   * @constructor
+   */
+  static Forbidden() {
+    return new ApiError(403, 'Please check your email to activate your account');
+  }
+
+  /**
+   *
    * @param message
    * @param errors
    * @returns {ApiError}

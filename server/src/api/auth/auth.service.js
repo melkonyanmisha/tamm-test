@@ -43,7 +43,10 @@ class AuthService {
    */
   async login({ email, password }) {
     const user = await UserModel.findOne({ email });
+
     if (!user) throw ApiError.BadRequest('User with this email was not found');
+
+    if (!user.isVerified) throw ApiError.Forbidden();
 
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) throw ApiError.BadRequest('Incorrect password');

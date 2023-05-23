@@ -19,6 +19,8 @@ const userMiddleware = (req, res, next) => {
     const userData = tokenService.validateAccessToken(accessToken);
     if (!userData) return next(ApiError.Unauthorized());
 
+    if(!userData.isVerified) return next(ApiError.Forbidden())
+
     req.user = userData;
     next();
   } catch (e) {
