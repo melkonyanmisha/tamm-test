@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import {Alert, Link as MuiLink, Snackbar} from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Context} from "../index";
+import {AUTH_ROUTE_SIGN_IN} from "../utils/constants";
 
 const defaultTheme = createTheme();
 
@@ -20,6 +21,7 @@ const SignUp = () => {
     const store = useContext(Context);
     const [signUpForm, setSignUpForm] = useState({firstName: '', lastName: '', email: '', password: ''});
     const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate();
 
     const onFormChange = (e) => {
         setSignUpForm({...signUpForm, [e.target.name]: e.target.value});
@@ -37,6 +39,7 @@ const SignUp = () => {
     const clickHandler = async () => {
         await store.registration(signUpForm);
         handleClick();
+        navigate(AUTH_ROUTE_SIGN_IN);
     };
 
     return (
